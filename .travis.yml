@@ -9,10 +9,11 @@ compiler:
 git:
   depth: 1
   
-global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "T59EnuG2Kptl4T+t8pNTqnRehnLmp7XnNgdic3oI8ElvTPxHFUYnQlW0PjRU7tafF5bNTGuR7sHUr0pNpFjU6FLqDRyrFabeE+hjcmeQFnYDix9BMMSJsKqzab46t7oEp8NnSuGQvCS1izkHa5vnLM6hRXCeilo1ziJlmb8qNlNR6PvhoKUVsH3xRKCsJqzYO1YNUw+faJBdEuHaMzC3rMKsNXI95djCsQSzxLCQEyLDpL3qgGhCdriZGiw27fJ3LsO2XqU+HHh4a+rq1iV4SDqKxDAPp9NYtM9iP0M9ErfyeBHQGhQTc70rq+rMJWiqb10p5iE/NsC3y2WdllgrHtSC5o+R0/H/NN0TUFu4YV4iH0HdM+qImZ4PQi7m1ii3Ny9DfQ4HIJzepeSxl7CFEs8I8a/RzXA9nC907jo/1QadzxaK1sh3KJAFMRodJgUKJo02LbiWIzQyPkPSS9Iay952BO8KwuzLOTH8OoNVXzL+uvzc/2qgPEa9PGhjaXybY0WLJEvLNKlzmJ0EsdYFeP/KvDW75BLm+LYcpKom/PH67AB+utNg/t9HRd5CNEdGDKHVmHLniTP+hNxLN7n/MQp1vaIuSFtdKg3hcerxTIKQMf+FnRQVLIH2FfzFSqR2R4sT3YtDxt2CdMYou6FP9mpifIQigvjM35yHEm6euk0="
+env:
+  global:
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    #   via the "travis encrypt" command using the project repo's public key
+    - secure: "T59EnuG2Kptl4T+t8pNTqnRehnLmp7XnNgdic3oI8ElvTPxHFUYnQlW0PjRU7tafF5bNTGuR7sHUr0pNpFjU6FLqDRyrFabeE+hjcmeQFnYDix9BMMSJsKqzab46t7oEp8NnSuGQvCS1izkHa5vnLM6hRXCeilo1ziJlmb8qNlNR6PvhoKUVsH3xRKCsJqzYO1YNUw+faJBdEuHaMzC3rMKsNXI95djCsQSzxLCQEyLDpL3qgGhCdriZGiw27fJ3LsO2XqU+HHh4a+rq1iV4SDqKxDAPp9NYtM9iP0M9ErfyeBHQGhQTc70rq+rMJWiqb10p5iE/NsC3y2WdllgrHtSC5o+R0/H/NN0TUFu4YV4iH0HdM+qImZ4PQi7m1ii3Ny9DfQ4HIJzepeSxl7CFEs8I8a/RzXA9nC907jo/1QadzxaK1sh3KJAFMRodJgUKJo02LbiWIzQyPkPSS9Iay952BO8KwuzLOTH8OoNVXzL+uvzc/2qgPEa9PGhjaXybY0WLJEvLNKlzmJ0EsdYFeP/KvDW75BLm+LYcpKom/PH67AB+utNg/t9HRd5CNEdGDKHVmHLniTP+hNxLN7n/MQp1vaIuSFtdKg3hcerxTIKQMf+FnRQVLIH2FfzFSqR2R4sT3YtDxt2CdMYou6FP9mpifIQigvjM35yHEm6euk0="
 
 addons:
   coverity_scan:
