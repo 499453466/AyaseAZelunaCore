@@ -8,33 +8,26 @@ compiler:
 
 git:
   depth: 1
+  
+global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "mCntzzirorbWkDqNbPtJox3lN3758pRmrH4fcUBx9+dTtudq2KHd3S3kgmaW93k+GrBx/VicURw0DZtVro/3QdZZWPzgtKToRbaZOL7AMc/CuODQfGd+AgHeSqJGxAFrT+thU1e/TVovTazPTH75gwsqj2JPPXyUuTBSK7Lm5BE3Qxh6yrtRyiQGRjzjn++CIOwMvVyXSQ3dwLE+a7xAq0vCWiv1B3JU+CW1Nr57kJ2do7lfvcabcuZXqEZND0GYPJfneZN6brgYAaXtVZOmEGZdwnE18xMxenCitDn8oTU8GllHjvnwsrYNCZ2MpAfrYlgvURSD+JdexcTXVlGCp6VaJviH6Q21TYpSX8yiOLR6f2yadYqurxgn6sG87Leg7CtpL5dp1kltQzIpRZiB6CsWAvxUDBrvDORTD9z88nMp3so1Nw+/GcYYyWX78HBPfOALsNV5XVBewMPw3mA18FT5gsC1ngo9uqVDoETUybmH4m0+9/95ZNlfe+zs3UG9tahVE7Qpw8yp7RqGc87+GVv4fOVIJsoLYNQ2H3hLvPiX5C9+MgWMbqmAxf1gLThmI3lwWKyEWwMCTOU0XTwxgj4jSNU89+AmlJZM08wsx39i9P59AnuxccAOaeCfFekxt4tQlbbb38eyxc09JiMPUQfsughfG5qo+3FVu515F30="
+
+addons:
+  coverity_scan:
+    project:
+      name: "azerothcore/azerothcore-wotlk"
+      description: "MMORPG Framework"
+    notification_email: azerothcore.org@gmail.com
+    build_command_prepend: "mkdir build;cd build;cmake ../ -DWITH_WARNINGS=1 -DWITH_COREDEBUG=1 -DUSE_COREPCH=1 -DUSE_SCRIPTPCH=1 -DTOOLS=1 -DSCRIPTS=1 -DSERVERS=1 -DWITH_PERFTOOLS=1 -DENABLE_EXTRA_LOGS=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=check_install;cd .."
+    build_command:   "cd bin; make -j 8 -k"
+    branch_pattern: coverity
 
 before_install:
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
   - sudo apt-get -y install build-essential libtool make cmake cmake-data openssl libgoogle-perftools-dev
   - sudo apt-get -y install libssl-dev libmysqlclient-dev libmysql++-dev libreadline6-dev zlib1g-dev libbz2-dev libace-dev
   - git config user.email "travis@build.bot" && git config user.name "Travis CI"
   - git tag -a -m "Travis build" init
 
-install:
-  - mysql -uroot -e 'create database test_mysql;'
-  # bin directory already exists in the repo and therefore is not created here
-  - cd bin
-  - cmake ../ -DWITH_WARNINGS=1 -DWITH_COREDEBUG=1 -DUSE_COREPCH=1 -DUSE_SCRIPTPCH=1 -DTOOLS=1 -DSCRIPTS=1 -DSERVERS=1 -DWITH_PERFTOOLS=1 -DENABLE_EXTRA_LOGS=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=check_install
-  - cd ..
-
-script:
-  - $CXX --version
-  - mysql -uroot < data/sql/create/create_mysql.sql
-  - cat data/sql/base/db_auth/*.sql | mysql -uacore -pacore auth
-  - cat data/sql/base/db_characters/*.sql | mysql -uacore -pacore characters
-  - cat data/sql/base/db_world/*.sql | mysql -uacore -pacore world
-  - cat data/sql/updates/db_auth/*.sql | mysql -uacore -pacore auth
-  - cat data/sql/updates/db_characters/*.sql | mysql -uacore -pacore characters
-  - cat data/sql/updates/db_world/*.sql | mysql -uacore -pacore world
-  - cat data/sql/updates/pending_db_auth/*.sql | mysql -uacore -pacore auth
-  - cat data/sql/updates/pending_db_characters/*.sql | mysql -uacore -pacore characters
-  - cat data/sql/updates/pending_db_world/*.sql | mysql -uacore -pacore world
-  - mysql -uroot < data/sql/create/drop_mysql.sql
-  - cd bin
-  - make -j 8 -k && make install
-  - cd check_install/bin
