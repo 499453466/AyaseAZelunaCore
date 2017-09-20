@@ -21,8 +21,8 @@ addons:
       name: "azerothcore/azerothcore-wotlk"
       description: "MMORPG Framework"
     notification_email: azerothcore.org@gmail.com
-    build_command_prepend: "mkdir build;cd build;cmake ../ -DWITH_WARNINGS=1 -DWITH_COREDEBUG=1 -DUSE_COREPCH=1 -DUSE_SCRIPTPCH=1 -DTOOLS=1 -DSCRIPTS=1 -DSERVERS=1 -DWITH_PERFTOOLS=1 -DENABLE_EXTRA_LOGS=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=check_install;cd .."
-    build_command:   "cd bin; make -j 8 -k"
+    build_command_prepend: "mkdir build;cd build;cmake ../ -DWITH_WARNINGS=1 -DWITH_COREDEBUG=1 -DUSE_COREPCH=1 -DUSE_SCRIPTPCH=1 -DTOOLS=1 -DSCRIPTS=1 -DSERVERS=1 -DWITH_PERFTOOLS=1 -DENABLE_EXTRA_LOGS=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=check_install"
+    build_command:   "make -j 8 -k"
     branch_pattern: coverity
 
 before_install:
