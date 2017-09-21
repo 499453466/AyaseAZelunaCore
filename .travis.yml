@@ -4,7 +4,7 @@ dist: trusty # (14.04)
 
 language: cpp
 compiler:
-  - clang
+  - gcc
 
 git:
   depth: 1
